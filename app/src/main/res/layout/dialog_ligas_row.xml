@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="35dp"
+            android:id="@+id/flag"
+            android:src="@drawable/flag_spain"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:layout_margin="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/textView"
+        android:layout_alignTop="@+id/flag"
+        android:layout_toRightOf="@+id/flag"
+        android:layout_toLeftOf="@+id/checkBox"
+        android:layout_toStartOf="@+id/checkBox"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/checkBox"
+        android:layout_alignTop="@+id/textView2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="center_vertical" />
+
+</RelativeLayout>
+
+

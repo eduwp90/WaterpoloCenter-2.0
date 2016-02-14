@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/mis_ligas"
+            android:checked="true"
+            android:icon="@mipmap/menu_misligas"
+            android:title="@string/my_leagues"/>
+        <item
+            android:id="@+id/competiciones"
+            android:checked="false"
+            android:icon="@mipmap/menu_competiciones"
+            android:title="@string/competitions"/>
+        <item
+            android:id="@+id/twitter"
+            android:checked="false"
+            android:icon="@mipmap/menu_twitter"
+            android:title="@string/twitter"/>
+    </group>
+</menu>

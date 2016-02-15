@@ -1,5 +1,6 @@
 package com.eapps.waterpolocenter.uiprincipal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -18,19 +19,21 @@ import android.widget.TextView;
 import com.eapps.waterpolocenter.R;
 import com.eapps.waterpolocenter.clases.partido_misligas_item;
 import com.eapps.waterpolocenter.dialogs.dialog_ligas_fragment;
+import com.eapps.waterpolocenter.uisecundario.activity_ligas_selector;
 
 import java.util.List;
 
 
 public class Fragment_misligas extends Fragment {
 
-
+    FloatingActionButton fab;
+    final int CHILD_SPECIFIED =1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //cargar iconos menu
-        setHasOptionsMenu(true);
+
 
 
     }
@@ -38,30 +41,26 @@ public class Fragment_misligas extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View fragmentView = inflater.inflate(R.layout.fragment_misligas, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_misligas, container, false);
+
+        //Find the floating button
+        fab = (FloatingActionButton) fragmentView.findViewById(R.id.fab);
+
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(),
+                        activity_ligas_selector.class);
+                startActivityForResult(i, CHILD_SPECIFIED);
+            }
+        });
+        return fragmentView;
     }
 
 
-    @Override
-    public void onCreateOptionsMenu(
-            Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_misligas, menu);
-    }
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
 
-        switch (item.getItemId()) {
-            case R.id.add_item:
-                dialog_ligas_fragment dFragment = new dialog_ligas_fragment();
-
-                dFragment.show(getActivity().getFragmentManager(),"dialog");
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
 
     public class ViewHolder_header extends RecyclerView.ViewHolder {

@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.eapps.waterpolocenter.clases.ligas_dialogligas_item;
+import com.eapps.waterpolocenter.uisecundario.activity_ligas_selector;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -530,13 +532,13 @@ public class utiles {
     }
 
 
-    public static ArrayList getArray(String pos, Context mcontext){
+    public static ArrayList getLigasArray(String pos, Context mcontext){
         SharedPreferences prefs = mcontext.getSharedPreferences("MisPreferencias",Context.MODE_PRIVATE);
         String retorno =prefs.getString(pos, null);
         ArrayList<Boolean> target2;
         if (retorno!=null){
             Gson gson = new Gson();
-            Type listType = new TypeToken<ArrayList<Boolean>>() {}.getType();
+            Type listType = new TypeToken<ArrayList<ligas_dialogligas_item>>() {}.getType();
             target2 = gson.fromJson(retorno, listType);
             Log.d("RETRIEVE",retorno);
         }else{
@@ -545,5 +547,7 @@ public class utiles {
 
         return target2 ;
     }
+
+
 }
 

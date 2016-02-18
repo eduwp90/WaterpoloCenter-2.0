@@ -1,8 +1,18 @@
 apply plugin: 'com.android.application'
 
+repositories {
+    mavenCentral()
+
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
+
+
 
     defaultConfig {
         applicationId "com.eapps.waterpolocenter"
@@ -23,10 +33,15 @@ ext {
     supportLibVersion = '23.1.1'  // variable that can be referenced to keep support libs consistent
 }
 
+
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "com.android.support:appcompat-v7:${supportLibVersion}"
     compile "com.android.support:design:${supportLibVersion}"
     compile "com.android.support:recyclerview-v7:${supportLibVersion}"
     compile 'com.google.code.gson:gson:2.5'
+    compile 'com.github.coyarzun89:fabtransitionactivity:0.1.1'
+    compile 'com.github.iammert:MaterialIntroView:1.5'
+
 }

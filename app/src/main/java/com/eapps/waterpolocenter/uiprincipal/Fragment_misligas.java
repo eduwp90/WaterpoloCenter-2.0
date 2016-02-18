@@ -18,16 +18,18 @@ import android.widget.TextView;
 
 import com.eapps.waterpolocenter.R;
 import com.eapps.waterpolocenter.clases.partido_misligas_item;
-import com.eapps.waterpolocenter.dialogs.dialog_ligas_fragment;
+
 import com.eapps.waterpolocenter.uisecundario.activity_ligas_selector;
+import com.github.fabtransitionactivity.SheetLayout;
 
 import java.util.List;
 
 
-public class Fragment_misligas extends Fragment {
+public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnimationEndListener {
 
     FloatingActionButton fab;
     final int CHILD_SPECIFIED =1;
+    SheetLayout mSheetLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,24 +45,36 @@ public class Fragment_misligas extends Fragment {
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_misligas, container, false);
         // Inflate the layout for this fragment
-
+        mSheetLayout = (SheetLayout) fragmentView.findViewById(R.id.bottom_sheet);
         //Find the floating button
         fab = (FloatingActionButton) fragmentView.findViewById(R.id.fab);
-
+        mSheetLayout.setFab(fab);
+        mSheetLayout.setFabAnimationEndListener(this);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(),
-                        activity_ligas_selector.class);
-                startActivityForResult(i, CHILD_SPECIFIED);
+                mSheetLayout.expandFab();
+
             }
         });
         return fragmentView;
     }
 
+    @Override
+    public void onFabAnimationEnd() {
+        Intent i = new Intent(getActivity(),
+                activity_ligas_selector.class);
+        startActivityForResult(i, CHILD_SPECIFIED);
+    }
 
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == CHILD_SPECIFIED){
+            mSheetLayout.contractFab();
+        }
+    }
 
 
     public class ViewHolder_header extends RecyclerView.ViewHolder {

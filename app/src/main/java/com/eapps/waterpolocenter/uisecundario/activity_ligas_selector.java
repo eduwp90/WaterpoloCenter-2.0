@@ -29,17 +29,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import co.mobiwise.materialintro.shape.Focus;
-import co.mobiwise.materialintro.shape.FocusGravity;
-import co.mobiwise.materialintro.view.MaterialIntroView;
 
 
 public class activity_ligas_selector extends AppCompatActivity {
 
     private Toolbar toolbar;
     ArrayList<ligas_dialogligas_item> ligaselegidas;
-    List<String> nombreligas;
-
+    List<String> nombreligas, jornadasligas, urlLigas;
     RecyclerView rv_ligas;
 
     @Override
@@ -62,8 +58,10 @@ public class activity_ligas_selector extends AppCompatActivity {
         //Recuperar array de ligas seleccionadas y orden
         ligaselegidas = utiles.getLigasArray("arrayid", this);
         nombreligas = Arrays.asList(getResources().getStringArray(R.array.ligas));
+        jornadasligas = Arrays.asList(getResources().getStringArray(R.array.Jornadas));
+        urlLigas = Arrays.asList(getResources().getStringArray(R.array.urlLigas));
 
-        if (ligaselegidas!=null){
+        if (ligaselegidas!=null && ligaselegidas.size()==nombreligas.size()){
             for(int i = 0; i < ligaselegidas.size(); i++) {
                 Log.d("lista bool RETRIEVED", ligaselegidas.get(i).getLiga().toString());
                 Log.d("lista bool RETRIEVED", "" + ligaselegidas.get(i).isChecked());
@@ -77,6 +75,8 @@ public class activity_ligas_selector extends AppCompatActivity {
                 ligas_dialogligas_item item = new ligas_dialogligas_item();
                 item.setFlag(R.drawable.flag_spain);
                 item.setLiga(nombreligas.get(i));
+                item.setJornadas(jornadasligas.get(i));
+                item.setUrl(urlLigas.get(i));
                 item.setIsChecked(false);
                 item.setId(i);
                 ligaselegidas.add(i, item);
@@ -143,6 +143,7 @@ public class activity_ligas_selector extends AppCompatActivity {
            case R.id.action_ok:
                 // procesarGuardar()
                utiles.saveArray("arrayid",ligaselegidas, this);
+
 
                this.finish();
                 break;
@@ -225,9 +226,7 @@ public class activity_ligas_selector extends AppCompatActivity {
 
             ImageView flag = viewHolder.flag;
             flag.setImageResource(R.drawable.flag_spain);
-            if (position==0){
-                tutorial(cb);
-            }
+
 
 
 
@@ -241,21 +240,7 @@ public class activity_ligas_selector extends AppCompatActivity {
 
     }
 
-    private void tutorial(View cb) {
-        //TUTORIAL
-        new MaterialIntroView.Builder(this)
-                .enableDotAnimation(false)
-                .setFocusGravity(FocusGravity.CENTER)
-                .setFocusType(Focus.MINIMUM)
-                .setDelayMillis(500)
-                .enableFadeAnimation(true)
-                .performClick(true)
-                .setInfoText("Hi There! Click this card and see what happens.")
-                .setTarget(cb)
-                .setUsageId("intro_card") //THIS SHOULD BE UNIQUE ID
-                .show();
 
-    }
 
 
 }

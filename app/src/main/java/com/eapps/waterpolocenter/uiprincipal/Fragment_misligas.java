@@ -1,5 +1,6 @@
 package com.eapps.waterpolocenter.uiprincipal;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.eapps.waterpolocenter.R;
+import com.eapps.waterpolocenter.clases.header_misligas_item;
 import com.eapps.waterpolocenter.clases.partido_misligas_item;
 
 import com.eapps.waterpolocenter.uisecundario.activity_ligas_selector;
@@ -73,11 +75,12 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == CHILD_SPECIFIED){
             mSheetLayout.contractFab();
+
         }
     }
 
 
-    public class ViewHolder_header extends RecyclerView.ViewHolder {
+    static class ViewHolder_header extends RecyclerView.ViewHolder {
 
         private TextView competicion, jornadas;
         private ImageView flag;
@@ -112,7 +115,7 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
             this.flag = flag;
         }
     }
-    public class ViewHolder_partido extends RecyclerView.ViewHolder {
+    static class ViewHolder_partido extends RecyclerView.ViewHolder {
 
         private TextView local, visitante, resultado, periodo;
         private ImageView escudolocal, escudovisitante;
@@ -170,6 +173,16 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
             this.escudovisitante = escudovisitante;
         }
     }
+
+    public static class RecyclerViewSimpleTextViewHolder extends RecyclerView.ViewHolder{
+        public TextView textView;
+        public RecyclerViewSimpleTextViewHolder(View itemView) {
+            super(itemView);
+            textView = (TextView) itemView;
+        }
+    }
+
+
     //SIN FINALIZAR
     public class MisLigas_RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -203,18 +216,65 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
             RecyclerView.ViewHolder viewHolder;
             LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-
-
-            View v1 = inflater.inflate(R.layout.rv_misligas_header, viewGroup, false);
-            viewHolder = new ViewHolder_header(v1);
-
-
+            switch (viewType) {
+                case PARTIDO:
+                    View v1 = inflater.inflate(R.layout.rv_misligas_partido, viewGroup, false);
+                    viewHolder = new ViewHolder_partido(v1);
+                    break;
+                case HEADER:
+                    View v2 = inflater.inflate(R.layout.rv_misligas_header, viewGroup, false);
+                    viewHolder = new ViewHolder_header(v2);
+                    break;
+                default:
+                    View v = inflater.inflate(android.R.layout.simple_list_item_1, viewGroup, false);
+                    viewHolder = new RecyclerViewSimpleTextViewHolder(v);
+                    break;
+            }
             return viewHolder;
         }
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-            //More to come
+            switch (viewHolder.getItemViewType()) {
+                case HEADER:
+                    ViewHolder_header vh1 = (ViewHolder_header) viewHolder;
+                    configureViewHolderHeader(vh1, position);
+                    break;
+                case PARTIDO:
+                    ViewHolder_partido vh2 = (ViewHolder_partido) viewHolder;
+                    configureViewHolderPartido(vh2, position);
+                    break;
+                default:
+                    RecyclerViewSimpleTextViewHolder vh = (RecyclerViewSimpleTextViewHolder) viewHolder;
+                    configureDefaultViewHolder(vh, position);
+                    break;
+            }
+        }
+
+        private void configureDefaultViewHolder(RecyclerViewSimpleTextViewHolder vh, int position) {
+
+        }
+
+        private void configureViewHolderHeader(ViewHolder_header vh1, int position) {
+            header_misligas_item header = (header_misligas_item) items.get(position);
+            if (header != null) {
+                vh1.getFlag().setImageResource(header.getFlag());
+                vh1.getCompeticion().setText(header.getLiga());
+                vh1.getJornadas().setText(header.getJornada());
+            }
+        }
+
+        private void configureViewHolderPartido(ViewHolder_partido vh2, int position) {
+            partido_misligas_item partido = (partido_misligas_item) items.get(position);
+            if (partido != null){
+                vh2.getEscudolocal().setImageResource(partido.getEscudol());
+                vh2.getEscudovisitante().setImageResource(partido.getEscudov());
+                vh2.getLocal().setText(partido.getLocal());
+                vh2.getPeriodo().setText(partido.getPeriodo());
+                vh2.getResultado().setText(partido.getResultado());
+                vh2.getVisitante().setText(partido.getVisitante());
+
+            }
         }
     }
 

@@ -6,7 +6,18 @@ package com.eapps.waterpolocenter.clases;
 public class ligas_dialogligas_item {
     private int flag;
     private String liga;
+    private String jornadas;
     private boolean isChecked;
+    private int id;
+    private String Url;
+
+    public String getUrl() {
+        return Url;
+    }
+
+    public void setUrl(String url) {
+        Url = url;
+    }
 
     public int getId() {
         return id;
@@ -15,8 +26,6 @@ public class ligas_dialogligas_item {
     public void setId(int id) {
         this.id = id;
     }
-
-    private int id;
 
     public int getFlag() {
         return flag;
@@ -40,5 +49,13 @@ public class ligas_dialogligas_item {
 
     public void setIsChecked(boolean isChecked) {
         this.isChecked = isChecked;
+    }
+
+    public String getJornadas() {
+        return jornadas;
+    }
+
+    public void setJornadas(String jornadas) {
+        this.jornadas = jornadas;
     }
 }

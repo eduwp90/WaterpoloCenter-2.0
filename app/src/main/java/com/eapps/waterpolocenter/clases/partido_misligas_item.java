@@ -7,6 +7,15 @@ public class partido_misligas_item {
     String local , visitante, periodo ,resultado;
     int escudol, escudov;
 
+    public partido_misligas_item(String local, String visitante, String periodo, String resultado, int escudol, int escudov) {
+        this.local = local;
+        this.visitante = visitante;
+        this.periodo = periodo;
+        this.resultado = resultado;
+        this.escudol = escudol;
+        this.escudov = escudov;
+    }
+
     public String getLocal() {
         return local;
     }

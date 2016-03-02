@@ -14,6 +14,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.eapps.waterpolocenter.R;
+import com.parse.Parse;
+import com.parse.ParseACL;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -27,6 +31,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ////PARSE TEST/////
+
+        Parse.initialize(new Parse.Configuration.Builder(getApplicationContext())
+                        .applicationId("Jbp3tpUJvfm54iaYts9Q8bcmXR7EUMt3WUmgsQCD")
+                        .clientKey("WWQuoaJupwil4fc1PbogqW1M1jFWJXIE2ul3xi3V")
+                        .server("https://wpcenter.herokuapp.com/Parse/")
+
+                        .build()
+        );
+
+
+
+
+        ////////////////////
 
 
 
@@ -73,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.twitter:
                         Toast.makeText(getApplicationContext(), "twitter", Toast.LENGTH_SHORT).show();
+
                         return true;
 
                     default:

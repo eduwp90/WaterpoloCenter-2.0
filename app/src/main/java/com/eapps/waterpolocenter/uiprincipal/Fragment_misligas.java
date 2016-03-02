@@ -7,7 +7,9 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,15 +17,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.eapps.waterpolocenter.R;
 import com.eapps.waterpolocenter.clases.header_misligas_item;
+import com.eapps.waterpolocenter.clases.ligas_dialogligas_item;
 import com.eapps.waterpolocenter.clases.partido_misligas_item;
 
 import com.eapps.waterpolocenter.uisecundario.activity_ligas_selector;
 import com.github.fabtransitionactivity.SheetLayout;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -32,6 +38,8 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
     FloatingActionButton fab;
     final int CHILD_SPECIFIED =1;
     SheetLayout mSheetLayout;
+    ArrayList<ligas_dialogligas_item> ligaselegidas;
+    ArrayList<Object> rv_lista;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,11 +55,19 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_misligas, container, false);
         // Inflate the layout for this fragment
+        RecyclerView rv = (RecyclerView) fragmentView.findViewById(R.id.recycler_view);
         mSheetLayout = (SheetLayout) fragmentView.findViewById(R.id.bottom_sheet);
         //Find the floating button
         fab = (FloatingActionButton) fragmentView.findViewById(R.id.fab);
         mSheetLayout.setFab(fab);
         mSheetLayout.setFabAnimationEndListener(this);
+        rv_lista = new ArrayList<Object>();
+        rv_lista.add(new header_misligas_item("DH masc", "Jornada 18/22",R.drawable.flag_spain));
+        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
+        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
+        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
+        rv_lista.add(new header_misligas_item("DH masc", "Jornada 18/22",R.drawable.flag_spain));
+        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +76,13 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
 
             }
         });
+        // Create adapter passing in the sample user data
+        final MisLigas_RecyclerViewAdapter adapter = new MisLigas_RecyclerViewAdapter(rv_lista);
+        // Attach the adapter to the recyclerview to populate items
+        rv.setAdapter(adapter);
+        // Set layout manager to position the items
+        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rv.setItemAnimator(null);
         return fragmentView;
     }
 
@@ -119,6 +142,7 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
 
         private TextView local, visitante, resultado, periodo;
         private ImageView escudolocal, escudovisitante;
+        LinearLayout rv;
 
         public ViewHolder_partido(View v) {
             super(v);
@@ -128,6 +152,7 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
             periodo = (TextView) v.findViewById(R.id.periodo);
             escudolocal =(ImageView)v.findViewById(R.id.escudol);
             escudovisitante =(ImageView)v.findViewById(R.id.escudov);
+            rv = (LinearLayout)v.findViewById(R.id.rv_layout);
         }
 
         public TextView getLocal() {
@@ -172,6 +197,9 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
         public void setEscudovisitante(ImageView escudovisitante) {
             this.escudovisitante = escudovisitante;
         }
+        public LinearLayout getRv(){
+            return rv;
+        }
     }
 
     public static class RecyclerViewSimpleTextViewHolder extends RecyclerView.ViewHolder{
@@ -206,7 +234,7 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
         public int getItemViewType(int position) {
             if (items.get(position) instanceof partido_misligas_item) {
                 return PARTIDO;
-            } else if (items.get(position) instanceof String) {
+            } else if (items.get(position) instanceof header_misligas_item) {
                 return HEADER;
             }
             return -1;
@@ -261,6 +289,8 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
                 vh1.getFlag().setImageResource(header.getFlag());
                 vh1.getCompeticion().setText(header.getLiga());
                 vh1.getJornadas().setText(header.getJornada());
+
+
             }
         }
 
@@ -273,6 +303,25 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
                 vh2.getPeriodo().setText(partido.getPeriodo());
                 vh2.getResultado().setText(partido.getResultado());
                 vh2.getVisitante().setText(partido.getVisitante());
+
+                float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 65, getResources().getDisplayMetrics());
+
+                if (!items.isEmpty()) {
+                    if (!(items.size()==position+1)) {
+                        if (items.get(position + 1) instanceof header_misligas_item) {
+                            ViewGroup.LayoutParams params = vh2.getRv().getLayoutParams();
+                            params.height= (int) pixels;
+                            vh2.getRv().setBackgroundResource(R.drawable.cardf);
+                            vh2.getRv().setLayoutParams(params);
+
+                        }
+                    }else{
+                        ViewGroup.LayoutParams params = vh2.getRv().getLayoutParams();
+                        params.height= (int) pixels;
+                        vh2.getRv().setBackgroundResource(R.drawable.cardf);
+                        vh2.getRv().setLayoutParams(params);
+                    }
+                }
 
             }
         }

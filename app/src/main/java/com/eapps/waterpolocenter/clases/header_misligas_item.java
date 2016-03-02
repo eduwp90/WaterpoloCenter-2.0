@@ -8,6 +8,12 @@ public class header_misligas_item {
     String liga, jornada;
     int flag;
 
+    public header_misligas_item(String liga, String jornada, int flag) {
+        this.liga = liga;
+        this.jornada = jornada;
+        this.flag = flag;
+    }
+
     public String getLiga() {
         return liga;
     }

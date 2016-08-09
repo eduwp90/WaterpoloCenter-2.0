@@ -45,6 +45,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         ////////////////////
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "bar");
+        testObject.saveInBackground();
 
 
 
@@ -133,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkForUpdates() {
         version=16;
+
 
     }
     @Override

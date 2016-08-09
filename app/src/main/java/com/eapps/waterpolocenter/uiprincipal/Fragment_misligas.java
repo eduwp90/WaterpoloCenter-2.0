@@ -61,12 +61,12 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
         fab = (FloatingActionButton) fragmentView.findViewById(R.id.fab);
         mSheetLayout.setFab(fab);
         mSheetLayout.setFabAnimationEndListener(this);
-        rv_lista = new ArrayList<Object>();
-        rv_lista.add(new header_misligas_item("DH masc", "Jornada 18/22",R.drawable.flag_spain));
+        rv_lista = new ArrayList<>();
+        rv_lista.add(new header_misligas_item("DH masc", "18/22",R.drawable.flag_spain));
         rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
         rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
         rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
-        rv_lista.add(new header_misligas_item("DH masc", "Jornada 18/22",R.drawable.flag_spain));
+        rv_lista.add(new header_misligas_item("DH masc", "18/22",R.drawable.flag_spain));
         rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
 
         fab.setOnClickListener(new View.OnClickListener() {

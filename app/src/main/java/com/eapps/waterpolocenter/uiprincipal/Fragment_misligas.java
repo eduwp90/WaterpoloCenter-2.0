@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,8 +28,10 @@ import com.eapps.waterpolocenter.clases.header_misligas_item;
 import com.eapps.waterpolocenter.clases.ligas_dialogligas_item;
 import com.eapps.waterpolocenter.clases.partido_misligas_item;
 
+import com.eapps.waterpolocenter.uisecundario.Partido_ESP_Activity;
 import com.eapps.waterpolocenter.uisecundario.activity_ligas_selector;
 import com.github.fabtransitionactivity.SheetLayout;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -55,7 +60,7 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_misligas, container, false);
         // Inflate the layout for this fragment
-        RecyclerView rv = (RecyclerView) fragmentView.findViewById(R.id.recycler_view);
+        final RecyclerView rv = (RecyclerView) fragmentView.findViewById(R.id.recycler_view);
         mSheetLayout = (SheetLayout) fragmentView.findViewById(R.id.bottom_sheet);
         //Find the floating button
         fab = (FloatingActionButton) fragmentView.findViewById(R.id.fab);
@@ -78,6 +83,38 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
         });
         // Create adapter passing in the sample user data
         final MisLigas_RecyclerViewAdapter adapter = new MisLigas_RecyclerViewAdapter(rv_lista);
+        //Handling onclick
+        adapter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int posicionclick = rv.getChildLayoutPosition(v);
+                int jornadaclick=posicionclick;
+                if (rv_lista.get(posicionclick) instanceof partido_misligas_item) {
+                    Log.d("CLICK","PARTIDO");
+
+                    while (rv_lista.get(jornadaclick)instanceof partido_misligas_item){
+                        jornadaclick=jornadaclick-1;
+                    }
+                    final Gson gson = new Gson();
+                    final String partidoJSON = gson.toJson(rv_lista.get(posicionclick));
+                    final Gson gsonj = new Gson();
+                    final String jornadaJSON = gsonj.toJson(rv_lista.get(jornadaclick));
+
+                    Intent intent = new Intent(getActivity(), Partido_ESP_Activity.class);
+                    intent.putExtra("Partido", partidoJSON);
+                    intent.putExtra("Jornada", jornadaJSON);
+                    Pair<View, String> p1 = Pair.create(v.findViewById(R.id.escudol), "escudo1");
+                    //Pair<View, String> p2 = Pair.create((View)v.findViewById(R.id.resultado), "resultado");
+                    Pair<View, String> p3 = Pair.create(v.findViewById(R.id.escudov), "escudo2");
+                    ActivityOptionsCompat options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation(getActivity(), p1, p3);
+                    getActivity().startActivity(intent, options.toBundle());
+                } else if (rv_lista.get(posicionclick) instanceof header_misligas_item) {
+                    Log.d("CLICK","HEADER");
+                }
+
+            }
+        });
         // Attach the adapter to the recyclerview to populate items
         rv.setAdapter(adapter);
         // Set layout manager to position the items
@@ -212,7 +249,7 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
 
 
     //SIN FINALIZAR
-    public class MisLigas_RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    public class MisLigas_RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 
         // The items to display in your RecyclerView
         private List<Object> items;
@@ -223,6 +260,8 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
         public MisLigas_RecyclerViewAdapter(List<Object> items) {
             this.items = items;
         }
+
+        private View.OnClickListener listener;
 
         // Return the size of your dataset (invoked by the layout manager)
         @Override
@@ -247,10 +286,12 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
             switch (viewType) {
                 case PARTIDO:
                     View v1 = inflater.inflate(R.layout.rv_misligas_partido, viewGroup, false);
+                    v1.setOnClickListener(this);
                     viewHolder = new ViewHolder_partido(v1);
                     break;
                 case HEADER:
                     View v2 = inflater.inflate(R.layout.rv_misligas_header, viewGroup, false);
+                    v2.setOnClickListener(this);
                     viewHolder = new ViewHolder_header(v2);
                     break;
                 default:
@@ -277,6 +318,16 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
                     configureDefaultViewHolder(vh, position);
                     break;
             }
+        }
+
+        public void setOnClickListener(View.OnClickListener listener) {
+            this.listener = listener;
+        }
+
+        @Override
+        public void onClick(View view) {
+            if(listener != null)
+                listener.onClick(view);
         }
 
         private void configureDefaultViewHolder(RecyclerViewSimpleTextViewHolder vh, int position) {

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<include
+android:id="@+id/toolbar_partido"
+layout="@layout/actionbar_custom"
+    />
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.eapps.waterpolocenter.uisecundario.Partido_ESP_Activity"
+    android:background="@drawable/card"
+    android:paddingBottom="15dp">
+
+
+
+    <TextView
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:text="PERIODO 2"
+        android:id="@+id/fecha_periodo"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:textSize="16sp"
+        android:textColor="@color/primary"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:text="10 - 10"
+        android:id="@+id/resultado"
+        android:gravity="center_horizontal"
+        android:textSize="30sp"
+        android:transitionName="resultado"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/fecha_periodo"
+        android:layout_marginTop="10dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:id="@+id/escudo1"
+        android:src="@drawable/catalunya"
+        android:layout_alignTop="@+id/fecha_periodo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="35dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginRight="15dp"
+        android:layout_toLeftOf="@+id/fecha_periodo"
+        android:transitionName="escudo1"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:id="@+id/escudo2"
+        android:src="@drawable/horta"
+        android:layout_marginRight="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_alignTop="@+id/fecha_periodo"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="false"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@+id/fecha_periodo"
+        android:transitionName="escudo2"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/localtext"
+        android:layout_below="@+id/escudo1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_toStartOf="@+id/resultado"
+        android:layout_toLeftOf="@+id/fecha_periodo"
+        android:gravity="center_vertical|center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/visitantetext"
+        android:layout_below="@+id/escudo2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/fecha_periodo"
+        android:layout_toEndOf="@+id/resultado"
+        android:gravity="center_vertical|center_horizontal" />
+
+
+</RelativeLayout>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView" />
+</LinearLayout>

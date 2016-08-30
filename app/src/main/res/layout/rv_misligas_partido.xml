@@ -16,7 +16,9 @@
         android:src="@drawable/catalunya"
         android:layout_gravity="center"
         android:scaleType="fitCenter"
-        android:padding="6dp" />
+        android:padding="6dp"
+        android:transitionName="escudo1"
+        />
 
     <TextView
         android:layout_width="0dp"
@@ -50,7 +52,8 @@
             android:id="@+id/resultado"
             android:layout_weight="3"
             android:gravity="top|center_vertical|center_horizontal"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:transitionName="resultado"/>
     </LinearLayout>
 
     <TextView
@@ -68,5 +71,6 @@
         android:id="@+id/escudov"
         android:layout_weight="5"
         android:padding="6dp"
-        android:src="@drawable/catalunya" />
+        android:src="@drawable/catalunya"
+        android:transitionName="escudo2"/>
 </LinearLayout>

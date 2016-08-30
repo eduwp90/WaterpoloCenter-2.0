@@ -23,15 +23,14 @@
         <!-- A child of the main activity -->
         <activity
             android:name=".uisecundario.activity_ligas_selector"
-            android:parentActivityName="com.eapps.waterpolocenter.uiprincipal.MainActivity" >
+            android:parentActivityName=".uiprincipal.MainActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.eapps.waterpolocenter.uiprincipal.MainActivity" />
-
         </activity>
-
+        <activity android:name=".uisecundario.Partido_ESP_Activity"></activity>
     </application>
 
 </manifest>

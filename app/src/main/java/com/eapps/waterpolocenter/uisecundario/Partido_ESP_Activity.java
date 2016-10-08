@@ -6,14 +6,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.eapps.waterpolocenter.R;
 import com.eapps.waterpolocenter.clases.header_misligas_item;
 import com.eapps.waterpolocenter.clases.partido_misligas_item;
 import com.google.gson.Gson;
+import com.parse.ParseInstallation;
 
 public class Partido_ESP_Activity extends AppCompatActivity {
 
@@ -31,6 +36,7 @@ public class Partido_ESP_Activity extends AppCompatActivity {
         TextView resultado = (TextView)findViewById(R.id.resultado);
         ImageView escudol =(ImageView)findViewById(R.id.escudo1);
         ImageView escudov =(ImageView)findViewById(R.id.escudo2);
+        Switch mswitch = (Switch)findViewById(R.id.switch1);
 
 
         //Set up action bar
@@ -71,19 +77,42 @@ public class Partido_ESP_Activity extends AppCompatActivity {
         escudov.setImageResource(partidoinfo.getEscudov());
         resultado.setText(partidoinfo.getResultado());
 
+        mswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+
+                if(isChecked){
+                    //SUBSCRIBE
+                }else{
+                    //UNSUSCRIBE
+                }
+
+            }
+        });
+
 
 
 
 
 
     }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.partido_menu, menu);
+        return true;
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 supportFinishAfterTransition();
+                return true;
+            case R.id.action_informar:
+                Log.d("INFORMAR","OK");
                 return true;
         }
         return super.onOptionsItemSelected(item);

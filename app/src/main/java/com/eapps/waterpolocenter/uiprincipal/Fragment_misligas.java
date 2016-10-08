@@ -37,6 +37,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import mehdi.sakout.dynamicbox.DynamicBox;
+
 
 public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnimationEndListener {
 
@@ -45,6 +47,8 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
     SheetLayout mSheetLayout;
     ArrayList<ligas_dialogligas_item> ligaselegidas;
     ArrayList<Object> rv_lista;
+    DynamicBox box ;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,13 +70,7 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
         fab = (FloatingActionButton) fragmentView.findViewById(R.id.fab);
         mSheetLayout.setFab(fab);
         mSheetLayout.setFabAnimationEndListener(this);
-        rv_lista = new ArrayList<>();
-        rv_lista.add(new header_misligas_item("DH masc", "18/22",R.drawable.flag_spain));
-        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
-        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
-        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
-        rv_lista.add(new header_misligas_item("DH masc", "18/22",R.drawable.flag_spain));
-        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
+
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +79,11 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
 
             }
         });
+
+        box = new DynamicBox(getActivity(),rv);
+
+        actualizar();
+
         // Create adapter passing in the sample user data
         final MisLigas_RecyclerViewAdapter adapter = new MisLigas_RecyclerViewAdapter(rv_lista);
         //Handling onclick
@@ -120,7 +123,50 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
         // Set layout manager to position the items
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.setItemAnimator(null);
+
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy){
+                if (dy > 0)
+                    fab.hide();
+                else if (dy < 0)
+                    fab.show();
+            }
+        });
+
+
         return fragmentView;
+    }
+
+    private void actualizar() {
+        fab.setVisibility(View.INVISIBLE);
+        box.showLoadingLayout();
+        box.setLoadingMessage(getResources().getString(R.string.loading));
+
+        //PRUEBAS
+
+        rv_lista = new ArrayList<>();
+        rv_lista.add(new header_misligas_item("DH masc", "18/22",R.drawable.flag_spain));
+        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
+        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
+        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
+        rv_lista.add(new header_misligas_item("DH masc", "18/22",R.drawable.flag_spain));
+        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
+        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
+        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
+        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
+        rv_lista.add(new header_misligas_item("DH masc", "18/22",R.drawable.flag_spain));
+        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
+        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
+        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
+        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
+        rv_lista.add(new header_misligas_item("DH masc", "18/22",R.drawable.flag_spain));
+        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
+
+
+        box.hideAll();
+        fab.setVisibility(View.VISIBLE);
+
     }
 
     @Override
@@ -190,6 +236,7 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
             escudolocal =(ImageView)v.findViewById(R.id.escudol);
             escudovisitante =(ImageView)v.findViewById(R.id.escudov);
             rv = (LinearLayout)v.findViewById(R.id.rv_layout);
+            v.setClickable(true);
         }
 
         public TextView getLocal() {
@@ -254,6 +301,7 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
         // The items to display in your RecyclerView
         private List<Object> items;
 
+
         private final int HEADER = 0, PARTIDO = 1;
 
         // Provide a suitable constructor (depends on the kind of dataset)
@@ -304,6 +352,7 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
+
             switch (viewHolder.getItemViewType()) {
                 case HEADER:
                     ViewHolder_header vh1 = (ViewHolder_header) viewHolder;
@@ -328,6 +377,7 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
         public void onClick(View view) {
             if(listener != null)
                 listener.onClick(view);
+
         }
 
         private void configureDefaultViewHolder(RecyclerViewSimpleTextViewHolder vh, int position) {
@@ -365,12 +415,13 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
                             vh2.getRv().setBackgroundResource(R.drawable.cardf);
                             vh2.getRv().setLayoutParams(params);
 
+                        }else{
+                            vh2.getRv().setBackgroundResource(R.drawable.cardm);
                         }
                     }else{
-                        ViewGroup.LayoutParams params = vh2.getRv().getLayoutParams();
-                        params.height= (int) pixels;
+
                         vh2.getRv().setBackgroundResource(R.drawable.cardf);
-                        vh2.getRv().setLayoutParams(params);
+
                     }
                 }
 

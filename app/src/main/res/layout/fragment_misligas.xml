@@ -19,7 +19,7 @@
         android:src="@drawable/ic_add"
         app:layout_anchor="@+id/recycler_view"
         app:layout_anchorGravity="bottom|end"
-        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"/>
+        />
 
     <com.github.fabtransitionactivity.SheetLayout
         android:id="@+id/bottom_sheet"

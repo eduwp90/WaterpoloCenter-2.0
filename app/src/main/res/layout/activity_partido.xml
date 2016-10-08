@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 <include
 android:id="@+id/toolbar_partido"
 layout="@layout/actionbar_custom"
     />
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -99,8 +109,90 @@ layout="@layout/actionbar_custom"
 
 </RelativeLayout>
 
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/notifications"
+        android:id="@+id/switch1"
+        android:layout_gravity="right"
+        android:layout_weight="0.02"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginBottom="3dp" />
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/layout_infoextra"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:weightSum="10"
+        android:background="@android:color/white">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/goleadores"
+            android:id="@+id/textView2"
+            android:layout_weight="8"
+            android:gravity="center"
+            android:textSize="@dimen/abc_text_size_menu_material"
+            />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView2"
+            android:layout_weight="2"
+            android:src="@drawable/ic_goal" />
+
+    </LinearLayout>
+
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listView" />
+        android:id="@+id/partido_list_goleadores"
+        />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:weightSum="10"
+            android:background="@android:color/white">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="@string/exclusiones"
+                android:id="@+id/textView3"
+                android:layout_weight="8"
+                android:gravity="center"
+                android:textSize="@dimen/abc_text_size_menu_material"
+                />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/imageView3"
+                android:layout_weight="2"
+                android:src="@drawable/ic_referee" />
+
+        </LinearLayout>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/partido_list_exp" />
+
+    </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
+
+
 </LinearLayout>

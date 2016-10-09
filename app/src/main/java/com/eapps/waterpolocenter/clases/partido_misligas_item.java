@@ -4,7 +4,17 @@ package com.eapps.waterpolocenter.clases;
  * Created by Edu Hackintosh on 07/02/2016.
  */
 public class partido_misligas_item {
-    String local , visitante, escudol, escudov ,periodo ,resultado;
+    String local , visitante, periodo ,resultado;
+    int escudol, escudov;
+
+    public partido_misligas_item(String local, String visitante, String periodo, String resultado, int escudol, int escudov) {
+        this.local = local;
+        this.visitante = visitante;
+        this.periodo = periodo;
+        this.resultado = resultado;
+        this.escudol = escudol;
+        this.escudov = escudov;
+    }
 
     public String getLocal() {
         return local;
@@ -22,19 +32,19 @@ public class partido_misligas_item {
         this.visitante = visitante;
     }
 
-    public String getEscudol() {
+    public int getEscudol() {
         return escudol;
     }
 
-    public void setEscudol(String escudol) {
+    public void setEscudol(int escudol) {
         this.escudol = escudol;
     }
 
-    public String getEscudov() {
+    public int getEscudov() {
         return escudov;
     }
 
-    public void setEscudov(String escudov) {
+    public void setEscudov(int escudov) {
         this.escudov = escudov;
     }
 

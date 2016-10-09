@@ -1,6 +1,7 @@
 package com.eapps.waterpolocenter.uiprincipal;
 
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 
 import android.os.Bundle;
@@ -13,6 +14,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.eapps.waterpolocenter.R;
+import com.parse.Parse;
+import com.parse.ParseACL;
+import com.parse.ParseInstallation;
+import com.parse.ParseObject;
+import com.parse.ParsePush;
+import com.parse.ParseUser;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -26,6 +33,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+        ////////////////////
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "ola k ase");
+        testObject.saveInBackground();
 
 
 
@@ -72,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.twitter:
                         Toast.makeText(getApplicationContext(), "twitter", Toast.LENGTH_SHORT).show();
+
                         return true;
 
                     default:
@@ -114,7 +129,16 @@ public class MainActivity extends AppCompatActivity {
     private void checkForUpdates() {
         version=16;
 
-    }
 
+    }
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 
 }

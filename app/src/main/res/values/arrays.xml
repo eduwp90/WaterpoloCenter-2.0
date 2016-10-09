@@ -8,4 +8,20 @@
         <item>♀ Spanish División de Honor</item>
         <item>♀ Spanish First Division</item>
     </string-array>
+    <string-array
+        name="Jornadas">
+        <item>22</item>
+        <item>22</item>
+        <item>22</item>
+        <item>18</item>
+        <item>18</item>
+    </string-array>
+    <string-array
+        name="urlLigas">
+        <item>369</item>
+        <item>370</item>
+        <item>371</item>
+        <item>372</item>
+        <item>373</item>
+    </string-array>
 </resources>

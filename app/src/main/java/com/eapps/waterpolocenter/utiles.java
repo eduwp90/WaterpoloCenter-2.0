@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.eapps.waterpolocenter.clases.ligas_dialogligas_item;
+import com.eapps.waterpolocenter.uisecundario.activity_ligas_selector;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -15,136 +17,136 @@ import java.util.ArrayList;
 public class utiles {
 
     private static ProgressDialog progressDialog1;
-    public static String convertirescudo(String equipo) {
-        String resid = null;
+    public static int convertirescudo(String equipo) {
+        int resid;
 
         if (equipo.toLowerCase().contains("matar")) {
-            resid = "mataro";
+            resid = R.drawable.mataro;
         }
         else if (equipo.toLowerCase().contains("barcelona")) {
-            resid = "barcelona";
+            resid = R.drawable.barcelona;
         }
         else if (equipo.toLowerCase().contains("barceloneta")) {
-            resid = "barceloneta";
+            resid = R.drawable.barceloneta;
         }
         else if (equipo.toLowerCase().contains("canoe")) {
-            resid = "canoe";
+            resid = R.drawable.canoe;
         }
         else if (equipo.toLowerCase().contains("catalu")){
-            resid = "catalunya";
+            resid = R.drawable.catalunya;
         }
         else if (equipo.toLowerCase().contains("concepci")){
-            resid = "concepcion";
+            resid = R.drawable.concepcion;
         }
         else if (equipo.toLowerCase().contains("helios")){
-            resid = "helios";
+            resid = R.drawable.helios;
         }
         else if (equipo.toLowerCase().contains("medite")){
-            resid = "mediterrani";
+            resid = R.drawable.mediterrani;
         }
         else if (equipo.toLowerCase().contains("navarra")){
-            resid = "navarra";
+            resid = R.drawable.navarra;
         }
         else if (equipo.toLowerCase().contains("sabadell")){
-            resid = "sabadell";
+            resid = R.drawable.sabadell;
         }
         else if (equipo.toLowerCase().contains("andreu")){
-            resid = "santandreu";
+            resid = R.drawable.santandreu;
         }
         else if (equipo.toLowerCase().contains("terrassa")){
-            resid = "terassa";
+            resid = R.drawable.terassa;
         }else if (equipo.toLowerCase().contains("echeyde")) {
-            resid = "echeyde";
+            resid = R.drawable.echeyde;
         }
         else if (equipo.toLowerCase().contains("feliu")) {
-            resid = "santfeliu";
+            resid = R.drawable.santfeliu;
         }
         else if (equipo.toLowerCase().contains("poble nou")) {
-            resid = "poblenou";
+            resid = R.drawable.poblenou;
         }
         else if (equipo.toLowerCase().contains("cantos")) {
-            resid = "trescantos";
+            resid = R.drawable.trescantos;
         }
         else if (equipo.toLowerCase().contains("sevilla")) {
-            resid = "wpsevilla";
+            resid = R.drawable.wpsevilla;
         }
         else if (equipo.toLowerCase().contains("metropole")) {
-            resid = "metropole";
+            resid = R.drawable.metropole;
         }
         else if (equipo.toLowerCase().contains("moscard")) {
-            resid = "moscardo";
+            resid = R.drawable.moscardo;
         }
         else if (equipo.toLowerCase().contains("molins")) {
-            resid = "molins";
+            resid = R.drawable.molins;
         }
         else if (equipo.toLowerCase().contains("askartza")) {
-            resid = "askartza";
+            resid = R.drawable.askartza;
         }
         else if (equipo.toLowerCase().contains("horta")) {
-            resid = "horta";
+            resid = R.drawable.horta;
         }
         else if (equipo.toLowerCase().contains("latina")) {
-            resid = "latina";
+            resid = R.drawable.latina;
         }
         else if (equipo.toLowerCase().contains("rubi")) {
-            resid = "rubi";
-        }else if (equipo.toLowerCase().contains("premia")) {
-            resid = "premia";
+            resid = R.drawable.rubi;
+        }
+        else if (equipo.toLowerCase().contains("premia")) {
+            resid = R.drawable.premia;
         }
         else if (equipo.toLowerCase().contains("portugalete")) {
-            resid = "portugalete";
+            resid = R.drawable.portugalete;
         }
         else if (equipo.toLowerCase().contains("turia")) {
-            resid = "turia";
+            resid = R.drawable.turia;
         }
         else if (equipo.toLowerCase().contains("cuatro caminos")) {
-            resid = "cuatrocaminos";
+            resid = R.drawable.cuatrocaminos;
         }
         else if (equipo.toLowerCase().contains("caballa")) {
-            resid = "caballa";
+            resid = R.drawable.caballa;
         }
         else if (equipo.toLowerCase().contains("hermanas")) {
-            resid = "doshermanas";
+            resid = R.drawable.doshermanas;
         }
         else if (equipo.toLowerCase().contains("palmas")) {
-            resid = "laspalmas";
+            resid = R.drawable.laspalmas;
         }
         else if (equipo.toLowerCase().contains("malaga")) {
-            resid = "wpmalaga";
+            resid = R.drawable.wpmalaga;
         }
         else if (equipo.toLowerCase().contains("98")) {
-            resid = "nueveocho";
+            resid = R.drawable.nueveocho;
         }
-
         else if (equipo.toLowerCase().contains("hospital")) {
-            resid = "hospitalet";
+            resid = R.drawable.hospitalet;
         }
         else if (equipo.toLowerCase().contains("escuela")) {
-            resid = "ewz";
+            resid = R.drawable.ewz;
         }
         else if (equipo.toLowerCase().contains("covibar")) {
-            resid = "covibar";
+            resid = R.drawable.covibar;
         }
         else if (equipo.toLowerCase().contains("leioa")) {
-            resid = "leioa";
+            resid = R.drawable.leioa;
         }
         else if (equipo.toLowerCase().contains("badia")) {
-            resid = "badia";
+            resid = R.drawable.badia;
         }
         else if (equipo.toLowerCase().contains("grano")) {
-            resid = "granollers";
+            resid = R.drawable.granollers;
         }
         else if (equipo.toLowerCase().contains("marbella")) {
-            resid = "marbella";
+            resid = R.drawable.marbella;
         }
         else if (equipo.toLowerCase().contains("elx")) {
-            resid = "elche1";
+            resid = R.drawable.elche1;
         }
         else if (equipo.toLowerCase().contains("bilb")) {
-            resid = "cdbilbao";
+            resid = R.drawable.cdbilbao;
         }
         else  {
-            resid = "sinescudo";
+            resid = R.drawable.sinescudo;
         }
         return resid;
 
@@ -530,13 +532,13 @@ public class utiles {
     }
 
 
-    public static ArrayList getArray(String pos, Context mcontext){
+    public static ArrayList getLigasArray(String pos, Context mcontext){
         SharedPreferences prefs = mcontext.getSharedPreferences("MisPreferencias",Context.MODE_PRIVATE);
         String retorno =prefs.getString(pos, null);
         ArrayList<Boolean> target2;
         if (retorno!=null){
             Gson gson = new Gson();
-            Type listType = new TypeToken<ArrayList<Boolean>>() {}.getType();
+            Type listType = new TypeToken<ArrayList<ligas_dialogligas_item>>() {}.getType();
             target2 = gson.fromJson(retorno, listType);
             Log.d("RETRIEVE",retorno);
         }else{
@@ -545,5 +547,7 @@ public class utiles {
 
         return target2 ;
     }
+
+
 }
 

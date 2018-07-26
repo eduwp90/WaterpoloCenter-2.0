@@ -2,11 +2,11 @@
 <resources>
     <string-array
         name="ligas">
-        <item>♂ Spanish División de Honor</item>
-        <item>♂ Spanish First Division</item>
-        <item>♂ Spanish Second Division</item>
-        <item>♀ Spanish División de Honor</item>
-        <item>♀ Spanish First Division</item>
+        <item>♂ División de Honor</item>
+        <item>♂ First Division</item>
+        <item>♂ Second Division</item>
+        <item>♀ División de Honor</item>
+        <item>♀ First Division</item>
     </string-array>
     <string-array
         name="Jornadas">
@@ -18,10 +18,10 @@
     </string-array>
     <string-array
         name="urlLigas">
-        <item>369</item>
-        <item>370</item>
-        <item>371</item>
-        <item>372</item>
-        <item>373</item>
+        <item>396</item>
+        <item>397</item>
+        <item>398</item>
+        <item>399</item>
+        <item>400</item>
     </string-array>
 </resources>

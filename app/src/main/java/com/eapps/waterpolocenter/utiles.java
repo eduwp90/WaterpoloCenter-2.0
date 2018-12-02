@@ -535,8 +535,10 @@ public class utiles {
     public static ArrayList getLigasArray(String pos, Context mcontext){
         SharedPreferences prefs = mcontext.getSharedPreferences("MisPreferencias",Context.MODE_PRIVATE);
         String retorno =prefs.getString(pos, null);
+
         ArrayList<Boolean> target2;
         if (retorno!=null){
+            Log.d("RETORNO",retorno);
             Gson gson = new Gson();
             Type listType = new TypeToken<ArrayList<ligas_dialogligas_item>>() {}.getType();
             target2 = gson.fromJson(retorno, listType);

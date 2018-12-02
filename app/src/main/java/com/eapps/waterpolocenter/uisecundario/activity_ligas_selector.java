@@ -1,6 +1,7 @@
 package com.eapps.waterpolocenter.uisecundario;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import com.eapps.waterpolocenter.R;
 import com.eapps.waterpolocenter.clases.ligas_dialogligas_item;
 import com.eapps.waterpolocenter.libary.DragSortRecycler;
 import com.eapps.waterpolocenter.utiles;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -113,7 +115,7 @@ public class activity_ligas_selector extends AppCompatActivity {
 
         rv_ligas.addItemDecoration(dragSortRecycler);
         rv_ligas.addOnItemTouchListener(dragSortRecycler);
-        rv_ligas.setOnScrollListener(dragSortRecycler.getScrollListener());
+        rv_ligas.addOnScrollListener(dragSortRecycler.getScrollListener());
 
 
 
@@ -143,6 +145,10 @@ public class activity_ligas_selector extends AppCompatActivity {
            case R.id.action_ok:
                 // procesarGuardar()
                utiles.saveArray("arrayid",ligaselegidas, this);
+               Gson gson = new Gson();
+               Intent intent = new Intent();
+               intent.putExtra("arrayid", gson.toJson(ligaselegidas));
+               setResult(RESULT_OK, intent);
 
 
                this.finish();

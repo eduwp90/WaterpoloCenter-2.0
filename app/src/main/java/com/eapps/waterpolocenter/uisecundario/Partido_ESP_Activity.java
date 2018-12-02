@@ -17,8 +17,17 @@ import android.widget.TextView;
 import com.eapps.waterpolocenter.R;
 import com.eapps.waterpolocenter.clases.header_misligas_item;
 import com.eapps.waterpolocenter.clases.partido_misligas_item;
+import com.eapps.waterpolocenter.utiles;
 import com.google.gson.Gson;
 import com.parse.ParseInstallation;
+import com.parse.ParseObject;
+
+import org.json.JSONArray;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
 
 public class Partido_ESP_Activity extends AppCompatActivity {
 
@@ -92,12 +101,10 @@ public class Partido_ESP_Activity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
     }
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

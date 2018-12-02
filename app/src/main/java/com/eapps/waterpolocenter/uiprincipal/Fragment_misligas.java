@@ -1,22 +1,18 @@
 package com.eapps.waterpolocenter.uiprincipal;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
-import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -30,14 +26,16 @@ import com.eapps.waterpolocenter.clases.partido_misligas_item;
 
 import com.eapps.waterpolocenter.uisecundario.Partido_ESP_Activity;
 import com.eapps.waterpolocenter.uisecundario.activity_ligas_selector;
+import com.eapps.waterpolocenter.utiles;
 import com.github.fabtransitionactivity.SheetLayout;
 import com.google.gson.Gson;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Arrays;
 import java.util.List;
-
-import mehdi.sakout.dynamicbox.DynamicBox;
 
 
 public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnimationEndListener {
@@ -45,9 +43,11 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
     FloatingActionButton fab;
     final int CHILD_SPECIFIED =1;
     SheetLayout mSheetLayout;
-    ArrayList<ligas_dialogligas_item> ligaselegidas;
+    List<ligas_dialogligas_item> list;
+    List<String> nombreligas, jornadasligas, urlLigas;
     ArrayList<Object> rv_lista;
-    DynamicBox box ;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    MisLigas_RecyclerViewAdapter adapter;
 
 
     @Override
@@ -70,6 +70,17 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
         fab = (FloatingActionButton) fragmentView.findViewById(R.id.fab);
         mSheetLayout.setFab(fab);
         mSheetLayout.setFabAnimationEndListener(this);
+        swipeRefreshLayout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout.setColorSchemeResources(
+                R.color.accent,
+                R.color.primary,
+                R.color.primary);
+        nombreligas = Arrays.asList(getResources().getStringArray(R.array.ligas));
+        jornadasligas = Arrays.asList(getResources().getStringArray(R.array.Jornadas));
+        urlLigas = Arrays.asList(getResources().getStringArray(R.array.urlLigas));
+        list = utiles.getLigasArray("arrayid", getActivity());
+        rv_lista = new ArrayList<>();
+
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -80,12 +91,19 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
             }
         });
 
-        box = new DynamicBox(getActivity(),rv);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Esto se ejecuta cada vez que se realiza el gesto
+                actualizar();
+            }
+        });
 
-        actualizar();
+
+
 
         // Create adapter passing in the sample user data
-        final MisLigas_RecyclerViewAdapter adapter = new MisLigas_RecyclerViewAdapter(rv_lista);
+        adapter = new MisLigas_RecyclerViewAdapter(rv_lista);
         //Handling onclick
         adapter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,38 +152,21 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
             }
         });
 
+        actualizar();
 
         return fragmentView;
     }
 
     private void actualizar() {
-        fab.setVisibility(View.INVISIBLE);
-        box.showLoadingLayout();
-        box.setLoadingMessage(getResources().getString(R.string.loading));
-
-        //PRUEBAS
-
-        rv_lista = new ArrayList<>();
-        rv_lista.add(new header_misligas_item("DH masc", "18/22",R.drawable.flag_spain));
-        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
-        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
-        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
-        rv_lista.add(new header_misligas_item("DH masc", "18/22",R.drawable.flag_spain));
-        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
-        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
-        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
-        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
-        rv_lista.add(new header_misligas_item("DH masc", "18/22",R.drawable.flag_spain));
-        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
-        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
-        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
-        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
-        rv_lista.add(new header_misligas_item("DH masc", "18/22",R.drawable.flag_spain));
-        rv_lista.add(new partido_misligas_item("cata","canoe","19/04/90","12:45",R.drawable.catalunya, R.drawable.canoe ));
+        if (list!=null){
+            ActualizarAsincrona act = new ActualizarAsincrona();
+            act.execute();
+        }else{
+            utiles.toast(getResources().getString(R.string.sinligas),getActivity());
+            swipeRefreshLayout.setRefreshing(false);
+        }
 
 
-        box.hideAll();
-        fab.setVisibility(View.VISIBLE);
 
     }
 
@@ -178,10 +179,87 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //RECIBIMOS DATOS DE LAS LIGAS ELEGIDAS
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == CHILD_SPECIFIED){
+            if(resultCode == getActivity().RESULT_OK) {
+                Log.d("ligas elegidas","aki ");
+                Gson gson = new Gson();
+                String strEditText = data.getStringExtra("arrayid");
+                list = Arrays.asList(new Gson().fromJson(strEditText, ligas_dialogligas_item[].class));
+                Log.d("ligas elegidas",list.get(0).getUrl().toString());
+            }
             mSheetLayout.contractFab();
+            actualizar();
 
+
+        }
+    }
+
+    private class ActualizarAsincrona extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Activos");
+            query.orderByAscending("liga");
+            query.addAscendingOrder("createdAt");
+            query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
+            try {
+                List<ParseObject> activosList = query.find();
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).isChecked()==true){
+                        rv_lista.add(new header_misligas_item(list.get(i).getLiga(), "",R.drawable.flag_spain));
+                        String liga_iter = list.get(i).getUrl();
+                        for (int j=0; j<activosList.size(); j++){
+                            String partidoparseliga= activosList.get(j).getString("liga");
+                            if(liga_iter.equals(partidoparseliga)){
+                                ParseObject partidoparse =activosList.get(j) ;
+                                String resultado= String.valueOf(partidoparse.getInt("goll"))+" - "+String.valueOf(partidoparse.getInt("golv"));
+                                String local = partidoparse.getString("local");
+                                String visitante=partidoparse.getString("visitante");
+                                int escudol = utiles.convertirescudo(local);
+                                int escudov = utiles.convertirescudo(visitante);
+                                rv_lista.add(new partido_misligas_item(local,visitante,partidoparse.getString("fhora"),resultado,escudol,escudov));
+                            }
+
+                        }
+
+
+                        publishProgress();
+                    }
+                }
+
+            }catch(ParseException e){
+                Log.d("score", "Error: " + e.getMessage());
+            }
+
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            adapter.notifyDataSetChanged();
+        }
+
+        @Override
+        protected void onPreExecute() {
+            fab.setVisibility(View.INVISIBLE);
+            swipeRefreshLayout.setRefreshing(true);
+            rv_lista.clear();
+
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            fab.setVisibility(View.VISIBLE);
+            swipeRefreshLayout.setRefreshing(false);
+            adapter.notifyDataSetChanged();
+        }
+
+        @Override
+        protected void onCancelled() {
+            utiles.toast("Tarea cancelada",getActivity());
         }
     }
 
@@ -314,7 +392,7 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
         // Return the size of your dataset (invoked by the layout manager)
         @Override
         public int getItemCount() {
-            return this.items.size();
+            return this.items == null ? 0 :this.items.size();
         }
 
         @Override
@@ -388,7 +466,7 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
             header_misligas_item header = (header_misligas_item) items.get(position);
             if (header != null) {
                 vh1.getFlag().setImageResource(header.getFlag());
-                vh1.getCompeticion().setText(header.getLiga());
+                vh1.getCompeticion().setText(header.getLiga().toUpperCase());
                 vh1.getJornadas().setText(header.getJornada());
 
 
@@ -400,10 +478,10 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
             if (partido != null){
                 vh2.getEscudolocal().setImageResource(partido.getEscudol());
                 vh2.getEscudovisitante().setImageResource(partido.getEscudov());
-                vh2.getLocal().setText(partido.getLocal());
+                vh2.getLocal().setText(utiles.convertirnombre(partido.getLocal()));
                 vh2.getPeriodo().setText(partido.getPeriodo());
                 vh2.getResultado().setText(partido.getResultado());
-                vh2.getVisitante().setText(partido.getVisitante());
+                vh2.getVisitante().setText(utiles.convertirnombre(partido.getVisitante()));
 
                 float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 65, getResources().getDisplayMetrics());
 

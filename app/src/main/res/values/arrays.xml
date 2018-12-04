@@ -17,11 +17,11 @@
         <item>18</item>
     </string-array>
     <string-array
-        name="urlLigas">
-        <item>396</item>
-        <item>397</item>
-        <item>398</item>
-        <item>399</item>
-        <item>400</item>
+        name="LigasShort">
+        <item>DHM</item>
+        <item>DHF</item>
+        <item>PDM</item>
+        <item>PDF</item>
+        <item>SDM</item>
     </string-array>
 </resources>

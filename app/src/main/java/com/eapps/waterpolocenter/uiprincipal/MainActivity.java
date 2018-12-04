@@ -36,13 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        ////////////////////
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "ola k ase");
-        testObject.saveInBackground();
-
-
-
 
         // Initializing Toolbar and setting it as the actionbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);

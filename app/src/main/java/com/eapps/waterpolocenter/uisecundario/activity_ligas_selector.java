@@ -61,7 +61,7 @@ public class activity_ligas_selector extends AppCompatActivity {
         ligaselegidas = utiles.getLigasArray("arrayid", this);
         nombreligas = Arrays.asList(getResources().getStringArray(R.array.ligas));
         jornadasligas = Arrays.asList(getResources().getStringArray(R.array.Jornadas));
-        urlLigas = Arrays.asList(getResources().getStringArray(R.array.urlLigas));
+        urlLigas = Arrays.asList(getResources().getStringArray(R.array.LigasShort));
 
         if (ligaselegidas!=null && ligaselegidas.size()==nombreligas.size()){
             for(int i = 0; i < ligaselegidas.size(); i++) {

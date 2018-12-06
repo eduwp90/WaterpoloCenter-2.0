@@ -29,12 +29,18 @@ import com.eapps.waterpolocenter.uisecundario.activity_ligas_selector;
 import com.eapps.waterpolocenter.utiles;
 import com.github.fabtransitionactivity.SheetLayout;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -48,6 +54,7 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
     ArrayList<Object> rv_lista;
     private SwipeRefreshLayout swipeRefreshLayout;
     MisLigas_RecyclerViewAdapter adapter;
+    Gson g = new Gson();
 
 
     @Override
@@ -77,7 +84,7 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
                 R.color.primary);
         nombreligas = Arrays.asList(getResources().getStringArray(R.array.ligas));
         jornadasligas = Arrays.asList(getResources().getStringArray(R.array.Jornadas));
-        urlLigas = Arrays.asList(getResources().getStringArray(R.array.urlLigas));
+        urlLigas = Arrays.asList(getResources().getStringArray(R.array.LigasShort));
         list = utiles.getLigasArray("arrayid", getActivity());
         rv_lista = new ArrayList<>();
 
@@ -123,7 +130,7 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
 
                     Intent intent = new Intent(getActivity(), Partido_ESP_Activity.class);
                     intent.putExtra("Partido", partidoJSON);
-                    intent.putExtra("Jornada", jornadaJSON);
+                    intent.putExtra("Liga", jornadaJSON);
                     Pair<View, String> p1 = Pair.create(v.findViewById(R.id.escudol), "escudo1");
                     //Pair<View, String> p2 = Pair.create((View)v.findViewById(R.id.resultado), "resultado");
                     Pair<View, String> p3 = Pair.create(v.findViewById(R.id.escudov), "escudo2");
@@ -200,12 +207,84 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
 
         @Override
         protected Void doInBackground(Void... params) {
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Activos");
-            query.orderByAscending("liga");
-            query.addAscendingOrder("createdAt");
-            query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
+
+            //Preparar constraints para queries
+            JsonObject jornadas_activas = new JsonParser().parse(utiles.getData("jornadas_activasJSON",getActivity().getBaseContext())).getAsJsonObject();
+            Calendar calendar = Calendar.getInstance();
+            calendar.add(Calendar.DAY_OF_YEAR, -3);
+            Date fecha1 = calendar.getTime();
+            calendar = Calendar.getInstance();
+            calendar.add(Calendar.DAY_OF_YEAR, 4);
+            Date fecha2 = calendar.getTime();
+
+            //Set the queries
+            ParseQuery<ParseObject> dhm = ParseQuery.getQuery("T1819");
+            dhm.whereEqualTo("liga", "DHM");
+            dhm.whereEqualTo("jornada", Integer.parseInt(jornadas_activas.get("DHM").toString()));
+
+            ParseQuery<ParseObject> n_dhm = ParseQuery.getQuery("T1819");
+            n_dhm.whereGreaterThanOrEqualTo("fhora", fecha1);
+            n_dhm.whereLessThanOrEqualTo("fhora", fecha2);
+            n_dhm.whereEqualTo("liga", "DHM");
+            n_dhm.whereNotEqualTo("jornada", Integer.parseInt(jornadas_activas.get("DHM").toString()));
+
+            ParseQuery<ParseObject> dhf = ParseQuery.getQuery("T1819");
+            dhf.whereEqualTo("liga", "DHF");
+            dhf.whereEqualTo("jornada", Integer.parseInt(jornadas_activas.get("DHF").toString()));
+
+            ParseQuery<ParseObject> n_dhf = ParseQuery.getQuery("T1819");
+            n_dhf.whereGreaterThanOrEqualTo("fhora", fecha1);
+            n_dhf.whereLessThanOrEqualTo("fhora", fecha2);
+            n_dhf.whereEqualTo("liga", "DHF");
+            n_dhf.whereNotEqualTo("jornada", Integer.parseInt(jornadas_activas.get("DHF").toString()));
+
+            ParseQuery<ParseObject> pdm = ParseQuery.getQuery("T1819");
+            pdm.whereEqualTo("liga", "PDM");
+            pdm.whereEqualTo("jornada", Integer.parseInt(jornadas_activas.get("PDM").toString()));
+
+            ParseQuery<ParseObject> n_pdm = ParseQuery.getQuery("T1819");
+            n_pdm.whereGreaterThanOrEqualTo("fhora", fecha1);
+            n_pdm.whereLessThanOrEqualTo("fhora", fecha2);
+            n_pdm.whereEqualTo("liga", "PDM");
+            n_pdm.whereNotEqualTo("jornada", Integer.parseInt(jornadas_activas.get("PDM").toString()));
+
+            ParseQuery<ParseObject> pdf = ParseQuery.getQuery("T1819");
+            pdf.whereEqualTo("liga", "PDF");
+            pdf.whereEqualTo("jornada", Integer.parseInt(jornadas_activas.get("PDF").toString()));
+
+            ParseQuery<ParseObject> n_pdf = ParseQuery.getQuery("T1819");
+            n_pdf.whereGreaterThanOrEqualTo("fhora", fecha1);
+            n_pdf.whereLessThanOrEqualTo("fhora", fecha2);
+            n_pdf.whereEqualTo("liga", "PDF");
+            n_pdf.whereNotEqualTo("jornada", Integer.parseInt(jornadas_activas.get("PDF").toString()));
+
+            ParseQuery<ParseObject> sdm = ParseQuery.getQuery("T1819");
+            sdm.whereEqualTo("liga", "SDM");
+            sdm.whereEqualTo("jornada", Integer.parseInt(jornadas_activas.get("SDM").toString()));
+
+            ParseQuery<ParseObject> n_sdm = ParseQuery.getQuery("T1819");
+            n_sdm.whereGreaterThanOrEqualTo("fhora", fecha1);
+            n_sdm.whereLessThanOrEqualTo("fhora", fecha2);
+            n_sdm.whereEqualTo("liga", "SDM");
+            n_sdm.whereNotEqualTo("jornada", Integer.parseInt(jornadas_activas.get("SDM").toString()));
+
+            List<ParseQuery<ParseObject>> queries = new ArrayList<ParseQuery<ParseObject>>();
+            queries.add(dhm);
+            queries.add(n_dhm);
+            queries.add(dhf);
+            queries.add(n_dhf);
+            queries.add(pdm);
+            queries.add(n_pdm);
+            queries.add(pdf);
+            queries.add(n_pdf);
+            queries.add(sdm);
+            queries.add(n_sdm);
+
+            ParseQuery<ParseObject> mainQuery = ParseQuery.or(queries);
+            mainQuery.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ONLY);
+
             try {
-                List<ParseObject> activosList = query.find();
+                List<ParseObject> activosList = mainQuery.find();
                 for (int i = 0; i < list.size(); i++) {
                     if (list.get(i).isChecked()==true){
                         rv_lista.add(new header_misligas_item(list.get(i).getLiga(), "",R.drawable.flag_spain));
@@ -219,7 +298,8 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
                                 String visitante=partidoparse.getString("visitante");
                                 int escudol = utiles.convertirescudo(local);
                                 int escudov = utiles.convertirescudo(visitante);
-                                rv_lista.add(new partido_misligas_item(local,visitante,partidoparse.getString("fhora"),resultado,escudol,escudov));
+                                int jornada = partidoparse.getInt("jornada");
+                                rv_lista.add(new partido_misligas_item(local,visitante,partidoparse.getString("fhora"),resultado,escudol,escudov,jornada,partidoparse.getJSONArray("goleadoresl"), partidoparse.getJSONArray("goleadoresv")));
                             }
 
                         }

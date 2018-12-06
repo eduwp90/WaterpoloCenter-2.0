@@ -6,7 +6,8 @@
     <string name="twitter">Follow me on Twitter</string>
     <string name="dialogtitle">Select competitions</string>
     <string name="OK">OK</string>
-    <string name="new_version">New version available</string>
+    <string name="new_version">NEW VERSION AVAILABLE</string>
+    <string name="new_version_text">New version available! Do you wish to update?</string>
     <string name="update">Update</string>
     <string name="later">Later</string>
     <string name="session">Session</string>

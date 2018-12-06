@@ -66,7 +66,7 @@ public class Partido_ESP_Activity extends AppCompatActivity {
         //Retrieve data from intent
 
         Intent intent = getIntent();
-        String ligas = intent.getStringExtra("Jornada");
+        String ligas = intent.getStringExtra("Liga");
         String partido = intent.getStringExtra("Partido");
         final Gson gson1 = new Gson();
         final header_misligas_item ligainfo = gson1.fromJson(ligas, header_misligas_item.class);
@@ -77,7 +77,7 @@ public class Partido_ESP_Activity extends AppCompatActivity {
 
         flag.setImageResource(ligainfo.getFlag());
         liga.setText(ligainfo.getLiga());
-        jornada.setText(getResources().getString(R.string.session)+" "+ligainfo.getJornada());
+        jornada.setText(getResources().getString(R.string.session)+" "+partidoinfo.getJornada());
 
         periodo.setText(partidoinfo.getPeriodo());
         local.setText(partidoinfo.getLocal());

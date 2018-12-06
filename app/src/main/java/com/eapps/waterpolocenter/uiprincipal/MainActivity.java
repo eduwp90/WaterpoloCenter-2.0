@@ -1,11 +1,13 @@
 package com.eapps.waterpolocenter.uiprincipal;
 
+import android.content.DialogInterface;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -14,12 +16,20 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.eapps.waterpolocenter.R;
+import com.eapps.waterpolocenter.utiles;
+import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseACL;
+import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import org.json.JSONArray;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -120,7 +130,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkForUpdates() {
-        version=16;
+        version=200;
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("config");
+        query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ONLY);
+        query.getInBackground("BzKxeYPCZm", new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (e == null) {
+                    // object retrieved
+                    if (version!=object.getInt("android_version")){
+
+                        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                        builder.setMessage(R.string.new_version_text)
+                                .setTitle(R.string.new_version);
+                        builder.setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // TODO User clicked OK button
+                            }
+                        });
+                        builder.setNegativeButton(R.string.later, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // User cancelled the dialog
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+
+                    //Retrieve jornada activa
+                    String jornadas = object.getJSONObject("jornadas_activasJSON").toString();
+                    utiles.saveData("jornadas_activasJSON",jornadas,MainActivity.this);
+
+                } else {
+                    // something went wrong
+                }
+            }
+        });
 
 
     }

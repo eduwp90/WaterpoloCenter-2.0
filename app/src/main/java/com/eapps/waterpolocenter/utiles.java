@@ -270,7 +270,7 @@ public class utiles {
         else if (equipo.toLowerCase().contains("terrassa")){
             resid = "C.N. Terrassa";
         }else if (equipo.toLowerCase().contains("echeyde")) {
-            resid = "Yoin! Echeyde";
+            resid = "Tenerife Echeyde";
         }
         else if (equipo.toLowerCase().contains("feliu")) {
             resid = "C.N. Sant Feliu";

@@ -3,18 +3,18 @@
     <string-array
         name="ligas">
         <item>♂ División de Honor</item>
-        <item>♂ First Division</item>
-        <item>♂ Second Division</item>
         <item>♀ División de Honor</item>
+        <item>♂ First Division</item>
         <item>♀ First Division</item>
+        <item>♂ Second Division</item>
     </string-array>
     <string-array
         name="Jornadas">
         <item>22</item>
-        <item>22</item>
+        <item>18</item>
         <item>22</item>
         <item>18</item>
-        <item>18</item>
+        <item>22</item>
     </string-array>
     <string-array
         name="LigasShort">

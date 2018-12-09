@@ -302,7 +302,7 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
                                 int jornada = partidoparse.getInt("jornada");
                                 JSONArray jl = partidoparse.getJSONArray("goleadoresl");
                                 JSONArray jv = partidoparse.getJSONArray("goleadoresv");
-                                String id = partidoparse.getString("id1")+ " "+ partidoparse.getString("liga");
+                                String id = partidoparse.getString("id1")+ " - "+ partidoparse.getString("liga");
                                 String periodo = utiles.periodo(partidoparse.getInt("periodo"),getActivity()).toUpperCase();
                                 rv_lista.add(new partido_misligas_item(local,visitante,periodo,resultado,escudol,escudov,jornada,jl.toString(),jv.toString(), id ));
                             }

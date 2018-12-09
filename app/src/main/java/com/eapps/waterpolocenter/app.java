@@ -5,7 +5,6 @@ import android.app.Application;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseInstallation;
-import com.parse.ParsePush;
 import com.parse.ParseUser;
 
 /**
@@ -28,12 +27,10 @@ public class app extends Application {
         );
         // ...
         ParseInstallation.getCurrentInstallation().saveInBackground();
-        ////PARSE TEST/////
-        ParsePush.subscribeInBackground("Test");
-
 
         ParseUser.enableAutomaticUser();
         ParseACL defaultACL = new ParseACL();
+
     }
 
 }

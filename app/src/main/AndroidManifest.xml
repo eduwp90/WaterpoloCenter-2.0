@@ -4,12 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <permission android:protectionLevel="signature"
-        android:name="com.eapps.waterpolocenter.permission.C2D_MESSAGE" />
-    <uses-permission android:name="com.eapps.waterpolocenter.permission.C2D_MESSAGE" />
+
 
     <application
         android:allowBackup="true"
@@ -39,9 +34,21 @@
         </activity>
         <activity android:name=".uisecundario.Partido_ESP_Activity"></activity>
 
-        <!-- config push -->
-        <service android:name="com.parse.PushService" />
-        <receiver android:name="com.parse.ParsePushBroadcastReceiver"
+        <service
+            android:name="com.parse.fcm.ParseFirebaseInstanceIdService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name="com.parse.fcm.ParseFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <receiver
+            android:name="com.parse.ParsePushBroadcastReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.parse.push.intent.RECEIVE" />
@@ -49,25 +56,8 @@
                 <action android:name="com.parse.push.intent.OPEN" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.parse.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-
-                <!--
-                IMPORTANT: Change "com.parse.starter" to match your app's package name.
-                -->
-                <category android:name="com.eapps.waterpolocenter" />
-            </intent-filter>
-        </receiver>
-
-        <!--
-        IMPORTANT: Change "YOUR_SENDER_ID" to your GCM Sender Id.
-        -->
-        <meta-data android:name="com.parse.push.gcm_sender_id"
-            android:value="id:784042569697" />;
-
     </application>
+
+
 
 </manifest>

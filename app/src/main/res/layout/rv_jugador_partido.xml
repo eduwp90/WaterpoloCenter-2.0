@@ -2,38 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="35dp"
+    android:background="@color/card_detailing"
     android:orientation="horizontal"
     android:weightSum="10">
 
     <ImageView
+        android:id="@+id/j_escudo"
         android:layout_width="0dp"
         android:layout_height="25dp"
-        android:id="@+id/j_escudo"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:src="@drawable/catalunya" />
-
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/j_foto"
-        android:layout_gravity="center"
-        android:layout_weight="1" />
+        android:src="@drawable/catalunya"
+        android:visibility="invisible" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
         android:id="@+id/j_nombre"
-        android:layout_gravity="center"
-        android:layout_weight="6" />
-
-    <TextView
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:text="New Text"
-        android:id="@+id/j_num"
         android:layout_gravity="center"
+        android:layout_weight="7"
+        android:gravity="center_vertical"
+        android:text="New Text"
+        android:textColor="@color/secondary_text" />
+
+    <TextView
+        android:id="@+id/j_num"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|center_horizontal|center"
         android:layout_weight="2"
-        android:gravity="center_vertical|center_horizontal" />
+        android:gravity="center_vertical|center_horizontal|center"
+        android:text="5"
+        android:textColor="@color/secondary_text" />
 </LinearLayout>

@@ -1,19 +1,16 @@
 package com.eapps.waterpolocenter.clases;
 
-import org.json.JSONArray;
-
 /**
  * Created by Edu Hackintosh on 07/02/2016.
  */
 public class partido_misligas_item {
     String local , visitante, periodo ,resultado;
     int escudol, escudov, jornada;
-    JSONArray jugadoresl, jugadoresv;
+    String jugadoresl, jugadoresv, id;
 
 
 
-
-    public partido_misligas_item(String local, String visitante, String periodo, String resultado, int escudol, int escudov, int jornada, JSONArray jugadoresl, JSONArray jugadoresv) {
+    public partido_misligas_item(String local, String visitante, String periodo, String resultado, int escudol, int escudov, int jornada, String jugadoresl, String jugadoresv, String id) {
         this.local = local;
         this.visitante = visitante;
         this.periodo = periodo;
@@ -23,7 +20,17 @@ public class partido_misligas_item {
         this.jornada = jornada;
         this.jugadoresl = jugadoresl;
         this.jugadoresv = jugadoresv;
+        this.id = id;
 
+
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getLocal() {
@@ -82,19 +89,19 @@ public class partido_misligas_item {
         this.jornada = jornada;
     }
 
-    public JSONArray getJugadoresl() {
+    public String getJugadoresl() {
         return jugadoresl;
     }
 
-    public void setJugadoresl(JSONArray jugadoresl) {
+    public void setJugadoresl(String jugadoresl) {
         this.jugadoresl = jugadoresl;
     }
 
-    public JSONArray getJugadoresv() {
+    public String getJugadoresv() {
         return jugadoresv;
     }
 
-    public void setJugadoresv(JSONArray jugadoresv) {
+    public void setJugadoresv(String jugadoresv) {
         this.jugadoresv = jugadoresv;
     }
 }

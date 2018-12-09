@@ -20,8 +20,17 @@
     <string name="goleadores">SCORERS</string>
     <string name="exclusiones">EJECTIONS</string>
     <string name="sinligas">Select some leagues first!</string>
+    <string name="notifications_ON">Notifications activated for this game</string>
+    <string name="notifications_OFF">Notifications deactivated for this game</string>
+    <string name="Q0">Scheduled</string>
+    <string name="Q1">1st Quarter</string>
+    <string name="Q2">2nd Quarter</string>
+    <string name="Q3">3rd Quarter</string>
+    <string name="Q4">4th Quarter</string>
+    <string name="Q5">Ended</string>
 
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
 </resources>

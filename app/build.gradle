@@ -17,7 +17,7 @@ android {
     defaultConfig {
         applicationId "com.eapps.waterpolocenter"
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode 25
         versionName "2.0"
     }
@@ -42,12 +42,8 @@ dependencies {
     api "com.android.support:recyclerview-v7:${supportLibVersion}"
     api 'com.google.code.gson:gson:2.5'
     api 'com.github.coyarzun89:fabtransitionactivity:0.2.0'
-    api "org.jsoup:jsoup:1.8.1"
-    api 'com.parse.bolts:bolts-android:1.+'
-    api 'com.parse:parse-android:1.+'
-    api 'com.github.medyo:dynamicbox:1.2@aar'
-    api 'com.squareup.picasso:picasso:2.5.2'
-    api 'org.jsoup:jsoup:1.9.2'
-
-
+    implementation 'com.github.parse-community.Parse-SDK-Android:fcm:1.18.5'
+    implementation 'com.google.firebase:firebase-core:16.0.1'
 }
+
+apply plugin: 'com.google.gms.google-services'

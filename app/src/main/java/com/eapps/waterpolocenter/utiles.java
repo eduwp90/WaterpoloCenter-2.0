@@ -7,7 +7,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.eapps.waterpolocenter.clases.ligas_dialogligas_item;
-import com.eapps.waterpolocenter.uisecundario.activity_ligas_selector;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -170,35 +169,35 @@ public class utiles {
         return prefs.getBoolean(pos, false);
     }
 
-    public static String periodo(int per) {
+    public static String periodo(int per, Context c) {
         String periodoview = null;
         switch(per){
             case 0:
-                periodoview =("Sin Comenzar");
+                periodoview = c.getString(R.string.Q0);
 
                 break;
             case 1:
-                periodoview=("Periodo "+per);
+                periodoview=c.getString(R.string.Q1);
 
                 break;
             case 2:
-                periodoview=("Periodo "+per);
+                periodoview=c.getString(R.string.Q2);
 
                 break;
             case 3:
-                periodoview=("Periodo "+per);
+                periodoview=c.getString(R.string.Q3);
 
                 break;
             case 4:
-                periodoview=("Periodo "+per);
+                periodoview=c.getString(R.string.Q4);
 
                 break;
             case 5:
-                periodoview=("Finalizado");
+                periodoview=c.getString(R.string.Q5);
 
                 break;
             case 6:
-                periodoview=("Finalizado");
+                periodoview=c.getString(R.string.Q5);
 
                 break;
 

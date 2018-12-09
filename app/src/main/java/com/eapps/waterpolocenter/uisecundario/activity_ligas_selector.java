@@ -2,7 +2,6 @@ package com.eapps.waterpolocenter.uisecundario;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,14 +27,12 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 
 
 public class activity_ligas_selector extends AppCompatActivity {
 
-    private Toolbar toolbar;
     ArrayList<ligas_dialogligas_item> ligaselegidas;
     List<String> nombreligas, jornadasligas, urlLigas;
     RecyclerView rv_ligas;
@@ -46,8 +43,8 @@ public class activity_ligas_selector extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ligas_selector);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        rv_ligas = (RecyclerView) findViewById(R.id.dialog_rV);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        rv_ligas = findViewById(R.id.dialog_rV);
         setSupportActionBar(toolbar);
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
@@ -65,7 +62,7 @@ public class activity_ligas_selector extends AppCompatActivity {
 
         if (ligaselegidas!=null && ligaselegidas.size()==nombreligas.size()){
             for(int i = 0; i < ligaselegidas.size(); i++) {
-                Log.d("lista bool RETRIEVED", ligaselegidas.get(i).getLiga().toString());
+                Log.d("lista bool RETRIEVED", ligaselegidas.get(i).getLiga());
                 Log.d("lista bool RETRIEVED", "" + ligaselegidas.get(i).isChecked());
 
 
@@ -181,9 +178,9 @@ public class activity_ligas_selector extends AppCompatActivity {
                 // to access the context from any ViewHolder instance.
                 super(itemView);
 
-                liga = (TextView) itemView.findViewById(R.id.textView);
-                ckbox = (CheckBox) itemView.findViewById(R.id.checkBox);
-                flag = (ImageView) itemView.findViewById(R.id.flag);
+                liga = itemView.findViewById(R.id.textView);
+                ckbox = itemView.findViewById(R.id.checkBox);
+                flag = itemView.findViewById(R.id.flag);
             }
         }
         // Store a member variable for the contacts
@@ -203,8 +200,7 @@ public class activity_ligas_selector extends AppCompatActivity {
             View contactView = inflater.inflate(R.layout.dialog_ligas_row, parent, false);
 
             // Return a new holder instance
-            ViewHolder viewHolder = new ViewHolder(contactView);
-            return viewHolder;
+            return new ViewHolder(contactView);
         }
 
         // Involves populating data into the item through holder

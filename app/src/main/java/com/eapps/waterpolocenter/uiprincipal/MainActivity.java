@@ -18,24 +18,12 @@ import android.widget.Toast;
 import com.eapps.waterpolocenter.R;
 import com.eapps.waterpolocenter.utiles;
 import com.parse.GetCallback;
-import com.parse.Parse;
-import com.parse.ParseACL;
 import com.parse.ParseException;
-import com.parse.ParseInstallation;
 import com.parse.ParseObject;
-import com.parse.ParsePush;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
-
-import org.json.JSONArray;
-
-import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
-    //Defining Variables
-    private Toolbar toolbar;
-    private NavigationView navigationView;
     private DrawerLayout drawerLayout; //Defining Variables
     int version;
 
@@ -48,11 +36,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Initializing Toolbar and setting it as the actionbar
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //Defining Variables
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //Initializing NavigationView
-        navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        NavigationView navigationView = findViewById(R.id.navigation_view);
 
         //Setting Navigation View Item Selected Listener to handle the item click of the navigation menu
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -100,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         // Initializing Drawer Layout and ActionBarToggle
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout,toolbar,R.string.openDrawer, R.string.closeDrawer){
+        drawerLayout = findViewById(R.id.drawer);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,drawerLayout, toolbar,R.string.openDrawer, R.string.closeDrawer){
 
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -170,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
+        DrawerLayout drawer = findViewById(R.id.drawer);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {

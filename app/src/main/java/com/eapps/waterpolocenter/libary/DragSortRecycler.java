@@ -32,8 +32,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.support.annotation.Nullable;
 
-import java.lang.reflect.Modifier;
-
 
 public class DragSortRecycler extends RecyclerView.ItemDecoration implements RecyclerView.OnItemTouchListener {
 

@@ -13,6 +13,7 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/card_shadow_2"
             android:paddingTop="5dp" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
@@ -35,9 +36,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
-        app:ft_container_gravity="center"
+        android:elevation="2dp"
         app:ft_color="@color/primary"
-        android:elevation="2dp"/>
+        app:ft_container_gravity="center" />
 
 
 </android.support.design.widget.CoordinatorLayout>

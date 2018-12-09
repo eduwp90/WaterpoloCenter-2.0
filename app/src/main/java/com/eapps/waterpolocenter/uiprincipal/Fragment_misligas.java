@@ -35,7 +35,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
-import org.json.JSONObject;
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -71,13 +71,13 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
                              Bundle savedInstanceState) {
         View fragmentView = inflater.inflate(R.layout.fragment_misligas, container, false);
         // Inflate the layout for this fragment
-        final RecyclerView rv = (RecyclerView) fragmentView.findViewById(R.id.recycler_view);
-        mSheetLayout = (SheetLayout) fragmentView.findViewById(R.id.bottom_sheet);
+        final RecyclerView rv = fragmentView.findViewById(R.id.recycler_view);
+        mSheetLayout = fragmentView.findViewById(R.id.bottom_sheet);
         //Find the floating button
-        fab = (FloatingActionButton) fragmentView.findViewById(R.id.fab);
+        fab = fragmentView.findViewById(R.id.fab);
         mSheetLayout.setFab(fab);
         mSheetLayout.setFabAnimationEndListener(this);
-        swipeRefreshLayout = (SwipeRefreshLayout) fragmentView.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = fragmentView.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(
                 R.color.accent,
                 R.color.primary,
@@ -194,7 +194,7 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
                 Gson gson = new Gson();
                 String strEditText = data.getStringExtra("arrayid");
                 list = Arrays.asList(new Gson().fromJson(strEditText, ligas_dialogligas_item[].class));
-                Log.d("ligas elegidas",list.get(0).getUrl().toString());
+                Log.d("ligas elegidas",list.get(0).getUrl());
             }
             mSheetLayout.contractFab();
             actualizar();
@@ -285,6 +285,7 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
 
             try {
                 List<ParseObject> activosList = mainQuery.find();
+                rv_lista.clear();
                 for (int i = 0; i < list.size(); i++) {
                     if (list.get(i).isChecked()==true){
                         rv_lista.add(new header_misligas_item(list.get(i).getLiga(), "",R.drawable.flag_spain));
@@ -299,7 +300,11 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
                                 int escudol = utiles.convertirescudo(local);
                                 int escudov = utiles.convertirescudo(visitante);
                                 int jornada = partidoparse.getInt("jornada");
-                                rv_lista.add(new partido_misligas_item(local,visitante,partidoparse.getString("fhora"),resultado,escudol,escudov,jornada,partidoparse.getJSONArray("goleadoresl"), partidoparse.getJSONArray("goleadoresv")));
+                                JSONArray jl = partidoparse.getJSONArray("goleadoresl");
+                                JSONArray jv = partidoparse.getJSONArray("goleadoresv");
+                                String id = partidoparse.getString("id1")+ " "+ partidoparse.getString("liga");
+                                String periodo = utiles.periodo(partidoparse.getInt("periodo"),getActivity()).toUpperCase();
+                                rv_lista.add(new partido_misligas_item(local,visitante,periodo,resultado,escudol,escudov,jornada,jl.toString(),jv.toString(), id ));
                             }
 
                         }
@@ -326,7 +331,7 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
         protected void onPreExecute() {
             fab.setVisibility(View.INVISIBLE);
             swipeRefreshLayout.setRefreshing(true);
-            rv_lista.clear();
+
 
         }
 
@@ -351,9 +356,9 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
 
         public ViewHolder_header(View v) {
             super(v);
-            competicion = (TextView) v.findViewById(R.id.liga);
-            jornadas = (TextView) v.findViewById(R.id.jornada);
-            flag =(ImageView)v.findViewById(R.id.flag);
+            competicion = v.findViewById(R.id.liga);
+            jornadas = v.findViewById(R.id.jornada);
+            flag = v.findViewById(R.id.flag);
         }
 
         public TextView getCompeticion() {
@@ -387,13 +392,13 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
 
         public ViewHolder_partido(View v) {
             super(v);
-            local = (TextView) v.findViewById(R.id.local);
-            visitante = (TextView) v.findViewById(R.id.visitante);
-            resultado = (TextView) v.findViewById(R.id.resultado);
-            periodo = (TextView) v.findViewById(R.id.periodo);
-            escudolocal =(ImageView)v.findViewById(R.id.escudol);
-            escudovisitante =(ImageView)v.findViewById(R.id.escudov);
-            rv = (LinearLayout)v.findViewById(R.id.rv_layout);
+            local = v.findViewById(R.id.local);
+            visitante = v.findViewById(R.id.visitante);
+            resultado = v.findViewById(R.id.resultado);
+            periodo = v.findViewById(R.id.periodo);
+            escudolocal = v.findViewById(R.id.escudol);
+            escudovisitante = v.findViewById(R.id.escudov);
+            rv = v.findViewById(R.id.rv_layout);
             v.setClickable(true);
         }
 

@@ -2,6 +2,7 @@ package com.eapps.waterpolocenter;
 
 import android.app.Application;
 
+import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.parse.Parse;
 import com.parse.ParseACL;
 import com.parse.ParseInstallation;
@@ -18,12 +19,11 @@ public class app extends Application {
     {
         super.onCreate();
         Parse.enableLocalDatastore(this);
-
+        AndroidThreeTen.init(this);
         Parse.initialize(new Parse.Configuration.Builder(getApplicationContext())
                 .applicationId(getString(R.string.ParseAppID))
                 .clientKey(getString(R.string.ParseClientKey))
                 .server(getString(R.string.ParseServerURL))
-
                 .build()
         );
         // ...

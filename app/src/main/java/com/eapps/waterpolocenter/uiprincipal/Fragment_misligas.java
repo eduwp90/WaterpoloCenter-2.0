@@ -1,5 +1,4 @@
 package com.eapps.waterpolocenter.uiprincipal;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,12 +17,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.eapps.waterpolocenter.R;
 import com.eapps.waterpolocenter.clases.header_misligas_item;
 import com.eapps.waterpolocenter.clases.ligas_dialogligas_item;
 import com.eapps.waterpolocenter.clases.partido_misligas_item;
-
 import com.eapps.waterpolocenter.uisecundario.Partido_ESP_Activity;
 import com.eapps.waterpolocenter.uisecundario.activity_ligas_selector;
 import com.eapps.waterpolocenter.utiles;
@@ -34,14 +31,16 @@ import com.google.gson.JsonParser;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-
 import org.json.JSONArray;
+import org.threeten.bp.format.DateTimeFormatter;
+import org.threeten.bp.format.FormatStyle;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnimationEndListener {
@@ -303,7 +302,16 @@ public class Fragment_misligas extends Fragment implements SheetLayout.OnFabAnim
                                 JSONArray jl = partidoparse.getJSONArray("goleadoresl");
                                 JSONArray jv = partidoparse.getJSONArray("goleadoresv");
                                 String id = partidoparse.getString("id1")+ " - "+ partidoparse.getString("liga");
-                                String periodo = utiles.periodo(partidoparse.getInt("periodo"),getActivity()).toUpperCase();
+                                if (partidoparse.getInt("periodo")==0){
+                                    Locale current_locale = getResources().getConfiguration().locale;
+                                    String fhora = partidoparse.getDate("fhora").toString();
+                                    String periodo = DateTimeFormatter.ISO_INSTANT.parse(fhora).ofLocalizedDate( FormatStyle.FULL )
+                                            .withLocale(current_locale ).format() ;
+                                }
+                                else
+                                {
+                                    String periodo = utiles.periodo(partidoparse.getInt("periodo"),getActivity()).toUpperCase();
+                                }
                                 rv_lista.add(new partido_misligas_item(local,visitante,periodo,resultado,escudol,escudov,jornada,jl.toString(),jv.toString(), id ));
                             }
 

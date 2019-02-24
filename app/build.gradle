@@ -44,6 +44,7 @@ dependencies {
     api 'com.github.coyarzun89:fabtransitionactivity:0.2.0'
     implementation 'com.github.parse-community.Parse-SDK-Android:fcm:1.18.5'
     implementation 'com.google.firebase:firebase-core:16.0.1'
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.1.1'
 }
 
 apply plugin: 'com.google.gms.google-services'
